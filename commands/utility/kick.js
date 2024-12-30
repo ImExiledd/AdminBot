@@ -1,34 +1,33 @@
 const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 
-
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('ban')
-    .setDescription('Ban a user from the guild')
+    .setName('kick')
+    .setDescription('Kick a user from the guild')
     .addMentionableOption(option => 
         option.setName('target')
-        .setDescription('Ban a member from the guild')
+        .setDescription('Member to kick')
         .setRequired(true))
     .addStringOption(option => 
         option.setName('reason')
-        .setDescription('The reason you are banning the user from this guild')
+        .setDescription('The reason you are kicking the target from the guild.')
         .setRequired(false)
-    )
-    .setDefaultMemberPermissions(PermissionsBitField.Flags.BanMembers)
+    )      
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers)
     .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
         const { client, guild } = interaction;
         const user = interaction.options.getUser('target');
         const reason = interaction.options.getString('reason') ?? 'No reason provided';
-        const guildName = guild.name
+        const guildName = guild.name;
         client.users.fetch(user.id).then(user => {
-            user.send(`You have been banned from ${guildName}. Moderator message: ${reason}`)
+            user.send(`You have been kicked from ${guildName}. Moderator message: ${reason}`)
         });
         setTimeout(function() {
-            interaction.guild.members.ban(user);
+            interaction.guild.members.kick(user);
         }, 2000);
         interaction.reply({
-            content: `Successfully banned ${user}! Reason: ${reason}`,
+            content: `Successfully kicked ${user}! Reason: ${reason}`,
             ephemeral: true
         });
     },
