@@ -29,8 +29,6 @@ module.exports = {
         });
         const targetUser = await guild.members.fetch(user);
         setTimeout(function() {
-            // Perform actions here. We do this here because otherwise the DM from above won't send.
-            // X * 60 * 1000
                 targetUser.timeout(time * 5 * 1000, reason);
         }, 2000);
         interaction.reply({
