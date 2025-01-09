@@ -17,7 +17,10 @@ module.exports = {
             .setDescription('The reason you are timing out the user from chatting in this guild')
             .setRequired(false))
     .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers)
-    .setContexts(InteractionContextType.Guild),
+    .setContexts(InteractionContextType.Guild)
+    .catch(error => {
+        console.log(`ERROR!!!: ${error}`)
+    }),
     async execute(interaction) {
         const { client, guild } = interaction;
         const user = interaction.options.getUser('target');

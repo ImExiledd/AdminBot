@@ -14,7 +14,10 @@ module.exports = {
         .setRequired(false)
     )      
     .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers)
-    .setContexts(InteractionContextType.Guild),
+    .setContexts(InteractionContextType.Guild)
+    .catch(error => {
+        console.log(`ERROR!!!: ${error}`)
+    }),
     async execute(interaction) {
         const { client, guild } = interaction;
         const user = interaction.options.getUser('target');
