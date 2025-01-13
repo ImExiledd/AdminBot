@@ -17,25 +17,27 @@ module.exports = {
             .setDescription('The reason you are timing out the user from chatting in this guild')
             .setRequired(false))
     .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers)
-    .setContexts(InteractionContextType.Guild)
-    .catch(error => {
-        console.log(`ERROR!!!: ${error}`)
-    }),
+    .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
-        const { client, guild } = interaction;
-        const user = interaction.options.getUser('target');
-        const reason = interaction.options.getString('reason') ?? 'No reason provided';
-        const time = interaction.options.getInteger('duration')
-        const guildName = guild.name
-        client.users.fetch(user.id).then(user => {
-            user.send(`You have been timed out in ${guildName}. Moderator message: ${reason}`)
-        });
-        const targetUser = await guild.members.fetch(user);
-        setTimeout(function() {
-                targetUser.timeout(time * 5 * 1000, reason);
-        }, 2000);
-        interaction.reply({
-            content: `Successfully timed out ${user} for ${time} minutes! Reason: ${reason}`
-        });
+        try {
+            const { client, guild } = interaction;
+            const user = interaction.options.getUser('target');
+            const reason = interaction.options.getString('reason') ?? 'No reason provided';
+            const time = interaction.options.getInteger('duration')
+            const guildName = guild.name
+            client.users.fetch(user.id).then(user => {
+                user.send(`You have been timed out in ${guildName}. Moderator message: ${reason}`)
+            });
+            const targetUser = await guild.members.fetch(user);
+            setTimeout(function() {
+                    targetUser.timeout(time * 5 * 1000, reason);
+            }, 2000);
+            interaction.reply({
+                content: `Successfully timed out ${user} for ${time} minutes! Reason: ${reason}`
+            });
+        } catch (error) {
+            LOGGER.error("An error has occured in 'utility/timeout.js': " + error)
+            return 1
+        }
     },
 }

@@ -15,24 +15,27 @@ module.exports = {
         .setRequired(false)
     )
     .setDefaultMemberPermissions(PermissionsBitField.Flags.BanMembers)
-    .setContexts(InteractionContextType.Guild)
-    .catch(error => {
-        console.log(`ERROR!!!: ${error}`)
-    }),
+    .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
-        const { client, guild } = interaction;
-        const user = interaction.options.getUser('target');
-        const reason = interaction.options.getString('reason') ?? 'No reason provided';
-        const guildName = guild.name
-        client.users.fetch(user.id).then(user => {
-            user.send(`You have been banned from ${guildName}. Moderator message: ${reason}`)
-        });
-        setTimeout(function() {
-            interaction.guild.members.ban(user);
-        }, 2000);
-        interaction.reply({
-            content: `Successfully banned ${user}! Reason: ${reason}`,
-            ephemeral: true
-        });
+        try {
+            const { client, guild } = interaction;
+            const user = interaction.options.getUser('target');
+            const reason = interaction.options.getString('reason') ?? 'No reason provided';
+            const guildName = guild.name
+            client.users.fetch(user.id).then(user => {
+                user.send(`You have been banned from ${guildName}. Moderator message: ${reason}`)
+            });
+            setTimeout(function() {
+                interaction.guild.members.ban(user);
+            }, 2000);
+            interaction.reply({
+                content: `Successfully banned ${user}! Reason: ${reason}`,
+                ephemeral: true
+            });
+        } catch (error) {
+            LOGGER.error("An error has occured in 'utility/ban.js': " + error)
+            return 1
+        }
+
     },
 };

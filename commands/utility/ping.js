@@ -4,11 +4,13 @@ const { SlashCommandBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('ping')
-    .setDescription('Test bot responsiveness')
-    .catch(error => {
-        console.log(`ERROR!!!: ${error}`)
-    }),
+    .setDescription('Test bot responsiveness'),
     async execute(interaction) {
-        await interaction.reply("Pong!");
+        try {
+            await interaction.reply("Pong!")
+        } catch (error) {
+            LOGGER.error("An error has occured in 'utility/ping.js': " + error)
+            return 1
+        }
     },
 };

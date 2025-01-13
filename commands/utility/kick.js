@@ -14,24 +14,27 @@ module.exports = {
         .setRequired(false)
     )      
     .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers)
-    .setContexts(InteractionContextType.Guild)
-    .catch(error => {
-        console.log(`ERROR!!!: ${error}`)
-    }),
+    .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
-        const { client, guild } = interaction;
-        const user = interaction.options.getUser('target');
-        const reason = interaction.options.getString('reason') ?? 'No reason provided';
-        const guildName = guild.name;
-        client.users.fetch(user.id).then(user => {
-            user.send(`You have been kicked from ${guildName}. Moderator message: ${reason}`)
-        });
-        setTimeout(function() {
-            interaction.guild.members.kick(user);
-        }, 2000);
-        interaction.reply({
-            content: `Successfully kicked ${user}! Reason: ${reason}`,
-            ephemeral: true
-        });
+        try {
+            const { client, guild } = interaction;
+            const user = interaction.options.getUser('target');
+            const reason = interaction.options.getString('reason') ?? 'No reason provided';
+            const guildName = guild.name;
+            client.users.fetch(user.id).then(user => {
+                user.send(`You have been kicked from ${guildName}. Moderator message: ${reason}`)
+            });
+            setTimeout(function() {
+                interaction.guild.members.kick(user);
+            }, 2000);
+            interaction.reply({
+                content: `Successfully kicked ${user}! Reason: ${reason}`,
+                ephemeral: true
+            });
+        } catch (error) {
+            LOGGER.error("An error has occured in 'utility/kick.js': " + error)
+            return 1
+        }
+
     },
 };

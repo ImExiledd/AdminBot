@@ -1,5 +1,7 @@
 {
     "clientId": "client-id-here",
     "guildId":"server-id-here",
-	"token": "bot-token-here"
+	"token": "bot-token-here",
+    "adminChannelId": "channel-id-for-staff-here",
+    "adminRole": "staff-role-id-here"
 }
