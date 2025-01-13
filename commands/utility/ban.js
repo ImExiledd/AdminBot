@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
-
+const { LOGGER } = require(`../../logging.js`);
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,9 +21,9 @@ module.exports = {
             const { client, guild } = interaction;
             const user = interaction.options.getUser('target');
             const reason = interaction.options.getString('reason') ?? 'No reason provided';
-            const guildName = guild.name
+            const guildName = guild.name;
             client.users.fetch(user.id).then(user => {
-                user.send(`You have been banned from ${guildName}. Moderator message: ${reason}`)
+                user.send(`You have been banned from ${guildName}. Moderator message: ${reason}`);
             });
             setTimeout(function() {
                 interaction.guild.members.ban(user);
@@ -33,8 +33,8 @@ module.exports = {
                 ephemeral: true
             });
         } catch (error) {
-            LOGGER.error("An error has occured in 'utility/ban.js': " + error)
-            return 1
+            LOGGER.error("An error has occured in 'utility/ban.js': " + error);
+            return 1;
         }
 
     },
