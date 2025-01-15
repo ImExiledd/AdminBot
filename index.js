@@ -1,7 +1,7 @@
 const {clientId} = require("./config.json");
 const {LOGGER} = require('./logging.js');
 const setupFunctions = {
-	addToServer: function() {
+	inviteGenerator: function() {
 		// We use this to allow the user to run initial setup for their bot. This will automatically generate
 		// an invite link to add the bot to their server, based on the data in `config.json`
 		const inviteString = `https://discord.com/oauth2/authorize?client_id=${clientId}&permissions=581773184724167&integration_type=0&scope=bot`;
@@ -22,7 +22,7 @@ const setupFunctions = {
 *
 */
 
-// setupFunctions.addToServer();
+// setupFunctions.inviteGenerator();
 
 const fs = require('node:fs');
 const path = require('node:path');
