@@ -40,7 +40,6 @@ const process = require("node:process")
 process.on('unhandledRejection', async (reason, promise) => {
 	console.log("Unhandled Rejection @ ", promise, "Reason: ", reason);
 });
-
 process.on('uncaughtException', (err) => {
 	console.log('Uncaught Exception: ', err);
 });
@@ -88,7 +87,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.on('unhandledRejection', error => {
-	console.error('HHHHHHHHHHHHHHHHHHUnhandled promise rejection:', error);
+	console.error('Unhandled promise rejection:', error);
 });
 
 client.login(token);
