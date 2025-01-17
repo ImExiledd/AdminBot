@@ -24,7 +24,7 @@ function getImage(dir) {
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('ecchi')
-    .setDescription('Random caption!')
+    .setDescription('Random ecchi!')
     .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
         try {
