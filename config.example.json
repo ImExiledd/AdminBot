@@ -3,5 +3,6 @@
     "guildId":"guild-id-here",
 	"token": "bot-token-here",
     "adminChannelId": "staff-channel-id-here",
-    "adminRole": "staff-role-id-here"
+    "adminRole": "staff-role-id-here",
+    "bot-owner-id": "bot-operator-uid-here"
 }
