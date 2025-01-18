@@ -24,7 +24,6 @@ module.exports = {
             { name: "shota", value: "shota" },
             { name: "solo", value: "solo" },
             { name: "yuri", value: "yuri" },
-            { name: "test", value: "test1" }
         )
         .setRequired(true)
     )
