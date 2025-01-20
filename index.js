@@ -1,5 +1,6 @@
-const {clientId} = require("./config.json");
+const {clientId, mongodb_uri} = require("./config.json");
 const {LOGGER} = require('./logging.js');
+const mongoose = require('mongoose')
 const setupFunctions = {
 	inviteGenerator: function() {
 		// We use this to allow the user to run initial setup for their bot. This will automatically generate
@@ -47,6 +48,8 @@ process.on("uncaughtExceptionMonitor", (err, origin) => {
 	console.log('Uncaught Exception Monitor: ', err, origin);
 });
 
+
+
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -61,9 +64,13 @@ for (const folder of commandFolders) {
 	}
 }
 
+
+
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+
+
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
@@ -90,4 +97,15 @@ client.on('unhandledRejection', error => {
 	console.error('Unhandled promise rejection:', error);
 });
 
+async function db() {
+	console.log("Attempting to connect to database...")
+	try {
+		await mongoose.connect(mongodb_uri);
+		console.log("Connected to database successfully!")
+	} catch(e) {
+		console.log("DBERR: " + e.toString())
+	}
+}
+
+db();
 client.login(token);

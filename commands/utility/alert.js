@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, EmbedBuilder } = require('discord.js');
 const { adminChannelId, adminRole } = require('../../config.json');
 const { LOGGER } = require(`../../logging.js`);
 
@@ -16,16 +16,26 @@ module.exports = {
 		try {
 			const {client, guild, channel} = interaction;
 			const sender = interaction.user.id;
-			const reason = interaction.options.getString('reason');
+			const senderName = interaction.user.username;
+			const reason = interaction.options.getString('reason') ?? "No reason provided.";
 			const guildName = guild.name;
+			const userAvatar = interaction.user.avatarURL();
 
-			 client.channels.cache.get(adminChannelId).send(`||[<@&${adminRole}>]|| ALERT! User <@${sender}> ran the alert command in <#${channel.id}>! Reason: ${reason}`)
-			 interaction.reply({
+			const alertEmbed = new EmbedBuilder()
+            .setColor(0xE21D52)
+            .setTitle("Admin Alerter")
+            .setDescription(`${reason}`)
+			.setThumbnail(userAvatar)
+            .setTimestamp()
+            .setFooter({ text:`Request sent by @${senderName}` });
+
+			interaction.reply({
 			 	content: "Request successful, a message has been sent to staff.",
 			 	ephemeral: true
-			 })
+			});
+			client.channels.cache.get(adminChannelId).send({embeds:[alertEmbed]});
 		} catch(error) {
-			LOGGER.error("An error has occured in 'utility/alert.js': " + error);
+			console.log("An error has occured in 'utility/alert.js': " + error);
 			return "error";
 		}
 	}

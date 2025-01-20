@@ -1,9 +1,10 @@
-const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, Attachment } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, Attachment, EmbedBuilder } = require('discord.js');
 const { readdir, readdirSync , createWriteStream, unlink, existsSync} = require('node:fs');
 const { join, extname } = require('node:path');
 const { get } = require('node:https');
 const { randomUUID } = require('crypto');
 const { exists } = require('sander');
+const { nsfwImageChannelId } = require('../../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -31,10 +32,20 @@ module.exports = {
     async execute(interaction) {
         const attached = interaction.options.getAttachment("file");
         const category = interaction.options.getString("category");
+        const imageAuthor = interaction.user.username();
+        const imageAuthorPFP = interaction.user.avatarURL();
         const imageName = `${randomUUID()}.${extname(attached.name)}`;
         const folderName = join(__dirname, '..', 'fun', 'images', category);
         const fileToRetrieve = `${folderName}/${imageName}`;
         const file = createWriteStream(fileToRetrieve);
+        const uploadEmbed = new EmbedBuilder()
+        .setColor(0x099FF)
+        .setTitle("New Image!")
+        .setAuthor({name: `${imageAuthor}`, iconURL: `${banIssuerPFP}`})
+        .setThumbnail(attached.url)
+        .setDescription(`Image successfully uploaded into ${category}`)
+        .setTimestamp()
+        .setFooter({ text:`Uploaded by ${imageAuthor}` });
         if(existsSync(folderName)) {
             var request = await get(attached.url, function(response) {
                 response.pipe(file);
@@ -49,6 +60,7 @@ module.exports = {
                 unlink(file);
                 console.log(err);
             });
+            client.channels.cache.get(nsfwImageChannelId).send({embeds:[modEmbed]});
         } else {
             interaction.reply({
                 content: `Failure! The category "${category}" does not exist!`,
