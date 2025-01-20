@@ -9,7 +9,7 @@ module.exports = {
         .setDescription('The message to send')
         .setRequired(true)
     )
-    .setDefaultMemberPermissions(PermissionsBitField.BanMembers)
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.BanMembers)
     .setContexts(InteractionContextType.Guild),
     async execute(interaction) {
         try {
