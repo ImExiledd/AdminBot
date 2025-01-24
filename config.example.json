@@ -3,6 +3,11 @@
     "guildId":"guild-id-here",
 	"token": "bot-token-here",
     "adminChannelId": "staff-channel-id-here",
-    "adminRole": "staff-role-id-here",
-    "bot-owner-id": "bot-operator-uid-here"
+    "adminRole": "admin-role-id-here",
+    "bot_owner_id": "bot-runner-public-discord-id-here",
+    "mongodb_uri": "mongodb-connect-uri-here",
+    "maxWarnings": 3,
+    "timeoutOnMaxWarnings": false,
+    "maxWarningTimeoutDurationInHours": 24,
+    "nsfwImageChannelId": "nsfw-image-channel-id-here"
 }
