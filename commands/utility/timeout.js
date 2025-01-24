@@ -45,7 +45,8 @@ module.exports = {
                     targetUser.timeout(time * 1000, reason);
             }, 2000);
             interaction.reply({
-                content: `Successfully timed out ${user} for ${time} secpnds! Reason: ${reason}`
+                content: `Successfully timed out ${user} for ${time} seconds! Reason: ${reason}`,
+                ephimeral: true
             });
             client.channels.cache.get(adminChannelId).send({embeds:[modEmbed]});
         } catch (error) {
