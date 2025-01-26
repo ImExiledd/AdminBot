@@ -7,6 +7,7 @@ const { exists } = require('sander');
 const { nsfwImageChannelId } = require('../../config.json');
 
 module.exports = {
+    isGuildLimited: true,
     data: new SlashCommandBuilder()
     .setName('upload-image')
     .setDescription('Add a picture to the bot!')
