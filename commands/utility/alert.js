@@ -3,6 +3,7 @@ const { adminChannelId, adminRole } = require('../../config.json');
 const { LOGGER } = require(`../../logging.js`);
 
 module.exports = {
+	isGuildLimited: false,
 	data: new SlashCommandBuilder()
 	.setName('alert')
 	.setDescription('Quietly alert Admins and Moderators to a situation in a channel.')

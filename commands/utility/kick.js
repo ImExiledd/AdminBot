@@ -2,6 +2,7 @@ const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, EmbedB
 const { adminChannelId } = require('../../config.json');
 
 module.exports = {
+    isGuildLimited: false,
     data: new SlashCommandBuilder()
     .setName('kick')
     .setDescription('Kick a user from the guild')

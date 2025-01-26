@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionsBitField, InteractionContextType } = require('discord.js');
 
 module.exports = {
+    isGuildLimited: false,
     data: new SlashCommandBuilder()
     .setName('chat')
     .setDescription('Send a chat message')

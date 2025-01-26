@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { LOGGER } = require(`../../logging.js`);
 
 module.exports = {
+    isGuildLimited: false,
     data: new SlashCommandBuilder()
     .setName('ping')
     .setDescription('Test bot responsiveness'),

@@ -4,6 +4,7 @@ const { randomUUID } = require('crypto');
 const Users = require('../../models/Users');
 
 module.exports = {
+    isGuildLimited: false,
     data: new SlashCommandBuilder()
     .setName('warn')
     .setDescription('Issue a warning to guild member.')

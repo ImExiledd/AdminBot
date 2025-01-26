@@ -2,6 +2,7 @@ const { SlashCommandBuilder, PermissionsBitField, InteractionContextType, EmbedB
 const { adminChannelId } = require('../../config.json');
 
 module.exports = {
+    isGuildLimited: false,
     data: new SlashCommandBuilder()
     .setName('timeout')
     .setDescription('Suspend a user without kicking or banning them')
