@@ -22,6 +22,7 @@ function getImage(dir) {
 
 
 module.exports = {
+    isGuildLimited: true,
     data: new SlashCommandBuilder()
     .setName('caption')
     .setDescription('Random caption!')

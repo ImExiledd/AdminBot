@@ -25,6 +25,7 @@ function errorHandler(e) {
 }
 
 module.exports = {
+    isGuildLimited: true,
     data: new SlashCommandBuilder()
     .setName('shota')
     .setDescription('Random shota!')

@@ -22,6 +22,7 @@ function getImage(dir) {
 
 
 module.exports = {
+    isGuildLimited: true,
     data: new SlashCommandBuilder()
     .setName('normal')
     .setDescription('Random normal cunny pic!')

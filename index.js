@@ -23,7 +23,7 @@ const setupFunctions = {
 *
 */
 
-// setupFunctions.inviteGenerator();
+//setupFunctions.inviteGenerator();
 
 const fs = require('node:fs');
 const path = require('node:path');

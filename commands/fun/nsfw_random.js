@@ -20,6 +20,7 @@ function getImage(dir) {
 }
 
 module.exports = {
+    isGuildLimited: true,
     data: new SlashCommandBuilder()
     .setName('cunny')
     .setDescription('Random cunny lewd!')

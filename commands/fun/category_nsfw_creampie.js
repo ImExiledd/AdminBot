@@ -22,6 +22,7 @@ function getImage(dir) {
 
 
 module.exports = {
+    isGuildLimited: true,
     data: new SlashCommandBuilder()
     .setName('creampie')
     .setDescription('Random creampie!')
