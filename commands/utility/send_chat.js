@@ -18,7 +18,7 @@ module.exports = {
             const user = interaction.user.id;
             const toSend = interaction.options.getString('message');
 
-            interaction.channel.send(`<@${user}> --> ${toSend}`);
+            interaction.channel.send(`[<@${user}>] ${toSend}`);
             interaction.reply({
                 content: "Message sent successfully!",
                 ephemeral: true
